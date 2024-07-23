@@ -2,32 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+@keyframes underline {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.underline-animation {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.underline-animation::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px; /* Adjust the thickness of the underline */
+  background-color: #3b82f6; /* Blueish color */
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.underline-animation:hover::after {
+  transform: translateX(0);
+  animation: underline 0.3s forwards;
+}
+
+html, body {
+  height: 100%; /* Ensure the body and html take the full height of the screen */
+  margin: 0; /* Remove any default margin */
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  background: linear-gradient(to bottom, #f3e8ff, #ffedd5, transparent) no-repeat; /* Custom gradient */
+  background-size: cover; /* Ensure the background covers the full area */
 }
